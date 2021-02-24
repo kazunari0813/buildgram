@@ -28,47 +28,62 @@
             <%= link_to root_path, class: "navbar-item" do %>
               <h1 class="title is-4" style="font-family: cursive;">buildgram</h1>
             <% end %>
-
-          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-            <span></span>
-            <span></span>
-            <span></span>
+            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
-          </div>
 
-            <% if user_signed_in? %>
-            <div class="navbar-end">
+          <% if user_signed_in? %>
+            <div id="navbarExampleTransparentExample" class="navbar-menu">
               <div class="navbar-item">
+                <%= link_to "投稿一覧", builds_path, class: "navbar-item button is-warning is-light" %>
+              </div>
+              <div class="navbar-item">
+                <%= link_to "新規投稿", new_build_path, class: "navbar-item button is-warning is-light" %>
+              </div>
 
-                <div class="field is-grouped">
-                  <p class="control">
-                  <%= link_to "ユーザー一覧",users_path,class: "button is-warning is-light" %>
-                </p>
-                  <p class="control">
-                    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
-                  </p>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="field is-grouped">
+                    <p class="control">
+                      <%= link_to "ユーザー一覧",users_path,class: "button is-warning is-light" %>
+                    </p>
+                    <p class="control">
+                      <%= link_to "マイページ",users_path(current_user),class: "button is-warning is-light" %>
+                    </p>
+                    <p class="control">
+                      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-            <% else %>
-            <div class="navbar-end">
+          <% else %>
+            <div id="navbarExampleTransparentExample" class="navbar-menu">
               <div class="navbar-item">
-                <div class="field is-grouped">
-                  <p class="control">
-                    <%= link_to "ユーザー一覧",users_path,class: "button is-warning is-light" %>
-                  </p>
-                  <p class="control">
-                    <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light" %>
-                  </p>
-                  <p class="control">
-                    <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light" %>
-                  </p>
+                <%= link_to "投稿一覧",builds_path,class: "button is-warning is-light" %>
+              </div>
+              <div class="navbar-item">
+                <%= link_to "ユーザー一覧", users_path, class: "navbar-item button is-warning is-light" %>
+              </div>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="field is-grouped">
+                    <p class="control">
+                      <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light" %>
+                    </p>
+                    <p class="control">
+                      <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light" %>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-            <% end %>
-          </nav>
+          <% end %>
 
-          <%= yield %>
-        </body>
+        </nav>
+        <%= yield %>
+      </body>
 </html>
