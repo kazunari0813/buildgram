@@ -1,4 +1,7 @@
 class BuildsController < ApplicationController
+
+	before_action :authenticate_user!, except: [:index]
+
   def index
   	@builds = Build.all
   end
@@ -14,18 +17,27 @@ class BuildsController < ApplicationController
   def create
   	@build = Build.new(build_params)
   	@build.user_id = current_user.id
-  	@build.save
-  	redirect_to build_path(@build)
+  	if @build.save
+  	redirect_to build_path(@build), notice:'投稿に成功しました'
+  	else
+  	render :new
+  	end
   end
 
   def edit
   	@build = Build.find(params[:id])
+  	if @build.user != current_user
+  		redirect_to builds_path, alert: '不正なアクセスです'
+  	end
   end
 
   def update
   	@build = Build.find(params[:id])
-  	@build.update(build_params)
-  	redirect_to build_path(@build)
+  	if @build.update(build_params)
+  	redirect_to build_path(@build), notice:'更新に成功しました'
+  	else
+  	render :edit
+  	end
   end
 
   def destroy

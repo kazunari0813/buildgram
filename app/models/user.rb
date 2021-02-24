@@ -4,6 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-         attachment :profile_image
-         has_many :builds, dependent: :destroy
+   attachment :profile_image
+   has_many :builds, dependent: :destroy
+
+   validates :username, presence: true
+   validates :email, presence: true
+
+
 end
