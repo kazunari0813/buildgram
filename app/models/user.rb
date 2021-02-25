@@ -6,9 +6,12 @@ class User < ApplicationRecord
 
    attachment :profile_image
    has_many :builds, dependent: :destroy
+   has_many :favorites, dependent: :destroy
 
    validates :username, presence: true
    validates :email, presence: true
 
-
+   def already_favorited?(build)
+    self.favorites.exists?(build_id: build.id)
+  end
 end

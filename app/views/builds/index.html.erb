@@ -36,6 +36,17 @@
               <div class="content">
                 <time><%= build.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
               </div>
+              <% if current_user.already_favorited?(build) %>
+                  <%= link_to build_favorites_path(build), method: :delete do %>
+                    <i class="fas fa-heart" style="color: red;"></i>
+                  <% end %>
+                  <%= build.favorites.count %>
+                <% else %>
+                  <%= link_to build_favorites_path(build), method: :post do %>
+                    <i class="far fa-heart"></i>
+                  <% end %>
+                  <%= build.favorites.count %>
+                <% end %>
             </div>
           </div>
         </div>

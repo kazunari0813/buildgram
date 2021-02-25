@@ -36,6 +36,18 @@
               <% if @build.user.id == current_user.id %>
                 <%= link_to "編集画面へ", edit_build_path(@build), class: "button is-success" %>
               <% end %>
+              <!-- いいね機能 -->
+              <% if current_user.already_favorited?(@build) %>
+                <%= link_to build_favorites_path(@build), method: :delete do %>
+                  <i class="fas fa-heart" style="color: red;"></i>
+                  <% end %>
+                  <%= @build.favorites.count %>
+                <% else %>
+                  <%= link_to build_favorites_path(@build), method: :post do %>
+                    <i class="far fa-heart"></i>
+                  <% end %>
+                  <%= @build.favorites.count %>
+                <% end %>
             </div>
           </div>
         </div>
